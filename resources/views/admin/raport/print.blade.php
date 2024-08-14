@@ -42,15 +42,15 @@
         .nilai-akademik th,
         .pkl th,
         .ekskul th {
-            padding-top: 12px;
-            padding-bottom: 12px;
+            padding-top: 8px;
+            padding-bottom: 8px;
             text-align: center;
         }
 
         .nilai-akademik td,
         .pkl td,
         .ekskul td {
-            padding: 10px;
+            padding: 2px;
         }
 
         .ketidakhadiran td {
@@ -77,7 +77,7 @@
         }
 
         body {
-            font-size: 12px;
+            font-size: 9px;
             margin: 0px;
         }
 
@@ -114,7 +114,7 @@
             </table>
         </div>
         <div class="nilai-akademik">
-            <p><b>A. Nilai Akademik</b></p>
+            <p><b>Nilai Akademik</b></p>
             <table>
                 <thead>
                     <tr>
@@ -149,13 +149,13 @@
                         @endif
                     </tr>
                     @endforeach
-                    <tr>
+                    <!--<tr>
                         <td colspan="2" class="text-center">Jumlah</td>
                         <td class="text-center">{{$raport->nilaiakademik->sum_pengetahuan}}</td>
                         <td class="text-center">{{$raport->nilaiakademik->sum_keterampilan}}</td>
                         <td class="text-center">{{$raport->nilaiakademik->sum_nilai_akhir}}</td>
                         <td class="text-center"></td>
-                    </tr>
+                    </tr>-->
                     <tr>
                         <td colspan="2" class="text-center">Rata-rata</td>
                         <td class="text-center">{{$raport->nilaiakademik->avg_pengetahuan}}</td>
@@ -166,12 +166,60 @@
                 </tbody>
             </table>
         </div>
-        <div class="catatan-akademik">
+        <div class="ketidakhadiran">
+            <p><b>Ekstrakurikuler</b></p>
+            <table>
+                <thead>
+                    <tr>
+                        <!--<th style="width: 5%" class="text-center">No</th>-->
+                        <th class="text-center">No</th>
+                        <th class="text-center">Kegiatan Ekstrakurikuler</th>
+                        <th class="text-center">Keterangan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $x=1 ?>
+                    @isset($raport->EkskulSiswa)
+                    @for ($i = 0; $i < 3; $i++) <tr>
+                        <td>{{$x++}}</td>
+                        <td>{{$raport->EkskulSiswa->hasilEkskul->toArray()[$i]['nama'] ?? ""}}</td>
+                        <td>{{$raport->EkskulSiswa->hasilEkskul->toArray()[$i]['pivot']['keterangan'] ?? ""}}</td>
+                        </tr>
+                        @endfor
+                        @else
+                        @for ($i = 0; $i < 3; $i++) <tr>
+                            <td>{{$x++}}</td>
+                            <td></td>
+                            <td></td>
+                            </tr>
+                            @endfor
+                            @endisset
+                </tbody>
+            </table>
+        </div>
+        <div class="ketidakhadiran">
+            <p><b>Ketidakhadiran</b></p>
+            <table>
+                <tr>
+                    <td>Sakit</td>
+                    <td>{{$raport->sakit ?? 0}} Hari</td>
+                </tr>
+                <tr>
+                    <td>Izin</td>
+                    <td>{{$raport->izin ?? 0}} Hari</td>
+                </tr>
+                <tr>
+                    <td>Tanpa Keterangan</td>
+                    <td>{{$raport->tanpa_ket ?? 0}} Hari</td>
+                </tr>
+            </table>
+        </div>
+        <!-- <div class="catatan-akademik">
             <p><b>B. Catatan Akademik</b></p>
             <p class="catatan"><i><b>{{$raport->cat_akademik}}</b></i></p>
-        </div>
+        </div>-->
     </div>
-    <br>
+    <!-- <br>
     <div class="page2">
         <div class="identitas">
             <table>
@@ -235,55 +283,9 @@
                             @endisset
                 </tbody>
             </table>
-        </div>
-        <div class="ekskul">
-            <p><b>D. Ekstrakurikuler</b></p>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 5%" class="text-center">No</th>
-                        <th class="text-center">Kegiatan Ekstrakurikuler</th>
-                        <th class="text-center">Keterangan</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $x=1 ?>
-                    @isset($raport->EkskulSiswa)
-                    @for ($i = 0; $i < 3; $i++) <tr>
-                        <td>{{$x++}}</td>
-                        <td>{{$raport->EkskulSiswa->hasilEkskul->toArray()[$i]['nama'] ?? ""}}</td>
-                        <td>{{$raport->EkskulSiswa->hasilEkskul->toArray()[$i]['pivot']['keterangan'] ?? ""}}</td>
-                        </tr>
-                        @endfor
-                        @else
-                        @for ($i = 0; $i < 3; $i++) <tr>
-                            <td>{{$x++}}</td>
-                            <td></td>
-                            <td></td>
-                            </tr>
-                            @endfor
-                            @endisset
-                </tbody>
-            </table>
-        </div>
-        <div class="ketidakhadiran">
-            <p><b>E. Ketidakhadiran</b></p>
-            <table>
-                <tr>
-                    <td>Sakit</td>
-                    <td>{{$raport->sakit ?? 0}} Hari</td>
-                </tr>
-                <tr>
-                    <td>Izin</td>
-                    <td>{{$raport->izin ?? 0}} Hari</td>
-                </tr>
-                <tr>
-                    <td>Tanpa Keterangan</td>
-                    <td>{{$raport->tanpa_ket ?? 0}} Hari</td>
-                </tr>
-            </table>
-        </div>
-        <div class="catatan-akademik">
+        </div>-->
+        
+        <!--<div class="catatan-akademik">
             <p><b>F. Kenaikan Kelas</b></p>
             <p class="catatan"><i><b>{{$raport->keterangan_kenaikan}}</b></i></p>
         </div>
@@ -365,7 +367,7 @@
     </div>
     <div>
 
-    </div>
+    </div>-->
 </body>
 
 </html>
